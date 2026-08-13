@@ -1,0 +1,29 @@
+# Node modules
+node_modules/
+Client/node_modules/
+Client/vite-project/node_modules/
+Server/node_modules/
+
+# Local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+Server/.env
+
+# Build outputs
+dist/
+Client/vite-project/dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+eslint.log
+
+# Editor configs and system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

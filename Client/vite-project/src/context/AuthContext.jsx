@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
     (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
   );
 
-  const API_URL = "http://localhost:5000/api";
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
   // Sync theme to document class on change/mount
   useEffect(() => {

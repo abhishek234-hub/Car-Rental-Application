@@ -44,8 +44,7 @@ const mongooseOptions = {
   dbName: "rentA",
   maxPoolSize: 10,                 // Maintain up to 10 socket connections in pool
   serverSelectionTimeoutMS: 5000,  // Keep trying to connect for 5 seconds
-  socketTimeoutMS: 45000,          // Close double idle sockets after 45 seconds
-  family: 4                        // Force IPv4 address resolution (important for Windows/local dev)
+  socketTimeoutMS: 45000           // Close double idle sockets after 45 seconds
 };
 
 mongoose

@@ -10,11 +10,12 @@ Server/node_modules/
 .env.development.local
 .env.test.local
 .env.production.local
+Client/.env
 Server/.env
 
 # Build outputs
 dist/
-Client/vite-project/dist/
+Client/dist/
 
 # Logs
 npm-debug.log*

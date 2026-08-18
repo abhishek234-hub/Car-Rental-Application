@@ -49,7 +49,7 @@ async function runMigration() {
 
     // 3. Connect to Remote MongoDB Atlas
     console.log("Connecting to Remote MongoDB Atlas Cluster...");
-    await mongoose.connect(REMOTE_URI, { dbName: "rentx" });
+    await mongoose.connect(REMOTE_URI, { dbName: "rentA" });
     console.log("Connected to Remote Atlas successfully!");
 
     const remoteDb = mongoose.connection.db;

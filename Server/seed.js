@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Car = require("./Models/Car");
 require("dotenv").config();
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/rentx";
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/rentA";
 
 const seedCars = [
   {
@@ -67,7 +67,7 @@ const seedCars = [
 ];
 
 mongoose
-  .connect(MONGODB_URI, { dbName: "rentx" })
+  .connect(MONGODB_URI, { dbName: "rentA" })
   .then(async () => {
     console.log("Connected to MongoDB for seeding...");
     // Clear old cars

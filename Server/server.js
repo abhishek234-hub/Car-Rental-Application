@@ -41,7 +41,7 @@ const PORT = process.env.PORT || 5000;
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/rentx";
 
 const mongooseOptions = {
-  dbName: "rentx",
+  dbName: "rentA",
   maxPoolSize: 10,                 // Maintain up to 10 socket connections in pool
   serverSelectionTimeoutMS: 5000,  // Keep trying to connect for 5 seconds
   socketTimeoutMS: 45000,          // Close double idle sockets after 45 seconds

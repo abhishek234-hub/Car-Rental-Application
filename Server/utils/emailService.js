@@ -11,7 +11,7 @@ const initTransporter = async () => {
   const host = process.env.EMAIL_HOST || "smtp.gmail.com";
   const port = parseInt(process.env.EMAIL_PORT) || 587;
 
-  if (user && pass && user !== "abmishra056@gmail.com" && pass !== "heruhlosoajmqvra") {
+  if (user && pass && pass !== "heruhlosoajmqvra") {
     console.log("Using SMTP credentials from environment variables for email sending.");
     transporter = nodemailer.createTransport({
       host,

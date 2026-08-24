@@ -41,9 +41,15 @@ const sendOTP = async (req, res) => {
     const emailResult = await sendOtpEmail(email, otp);
     
     if (emailResult.success) {
-      res.json({ success: true, message: "OTP verification code sent to your email." });
+      return res.status(200).json({
+        success: true,
+        message: "OTP sent successfully"
+      });
     } else {
-      res.status(500).json({ success: false, message: "Failed to send OTP email: " + emailResult.error });
+      return res.status(500).json({
+        success: false,
+        message: "OTP email could not be sent"
+      });
     }
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });

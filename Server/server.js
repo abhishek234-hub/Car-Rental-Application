@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
+const { validateEmailConfig } = require("./utils/emailService");
 
 // Initialize app
 const app = express();
@@ -74,8 +75,14 @@ const mongooseOptions = {
 
 mongoose
   .connect(MONGODB_URI, mongooseOptions)
-  .then(() => {
+  .then(async () => {
     console.log("MongoDB Connected Successfully!");
+    
+    // Validate SMTP email settings
+    await validateEmailConfig().catch((err) => {
+      console.error("⚠️ Email configuration validation failed:", err.message);
+    });
+
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
     });

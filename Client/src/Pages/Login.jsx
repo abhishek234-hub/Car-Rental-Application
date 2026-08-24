@@ -302,6 +302,7 @@ const Login = () => {
                     >
                       Continue
                     </button>
+                  </div>
                 </form>
               )}
 

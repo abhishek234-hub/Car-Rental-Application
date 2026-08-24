@@ -11,7 +11,7 @@ const initTransporter = async () => {
   const host = process.env.EMAIL_HOST || "smtp.gmail.com";
   const port = parseInt(process.env.EMAIL_PORT) || 587;
 
-  if (user && pass) {
+  if (user && pass && user !== "abmishra056@gmail.com" && pass !== "heruhlosoajmqvra") {
     console.log("Using SMTP credentials from environment variables for email sending.");
     transporter = nodemailer.createTransport({
       host,
@@ -21,7 +21,7 @@ const initTransporter = async () => {
       family: 4, // Force IPv4 to avoid IPv6 ENETUNREACH errors
     });
   } else {
-    console.log("No EMAIL_USER and EMAIL_PASS found in environment.");
+    console.log("No valid EMAIL_USER and EMAIL_PASS found in environment or invalid Gmail App Password.");
     console.log("Creating a temporary Ethereal test email account...");
     try {
       const testAccount = await nodemailer.createTestAccount();

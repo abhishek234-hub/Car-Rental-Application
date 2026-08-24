@@ -361,53 +361,8 @@ const Register = () => {
                   <div className="w-10 h-10 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
                   <p className="text-xs text-orange-600 dark:text-orange-400 font-bold">Connecting secure session...</p>
                 </div>
-              ) : !useCustomAccount ? (
-                /* Predefined Accounts selector list */
-                <div className="mt-8 space-y-3">
-                  <button
-                    onClick={() => handleGoogleSelect("abhishek.mishra@gmail.com", "Abhishek Mishra")}
-                    className="w-full flex items-center justify-between p-3.5 rounded-2xl hover:bg-slate-55 dark:hover:bg-slate-950/40 border border-slate-100 dark:border-slate-800 transition duration-200 cursor-pointer text-left shadow-sm"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-full bg-orange-100 dark:bg-orange-955/40 flex items-center justify-center text-orange-700 dark:text-orange-305 text-sm font-black">
-                        AM
-                      </div>
-                      <div>
-                        <p className="text-sm font-bold text-slate-800 dark:text-slate-100">Abhishek Mishra</p>
-                        <p className="text-xs text-slate-455 dark:text-slate-400">abhishek.mishra@gmail.com</p>
-                      </div>
-                    </div>
-                    <FaChevronRight className="text-slate-350 dark:text-slate-500 text-xs" />
-                  </button>
-
-                  <button
-                    onClick={() => handleGoogleSelect("guest.renter@gmail.com", "Renter Guest")}
-                    className="w-full flex items-center justify-between p-3.5 rounded-2xl hover:bg-slate-55 dark:hover:bg-slate-950/40 border border-slate-100 dark:border-slate-800 transition duration-200 cursor-pointer text-left shadow-sm"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-full bg-emerald-100 dark:bg-emerald-950/40 flex items-center justify-center text-emerald-700 dark:text-emerald-305 text-sm font-black">
-                        RG
-                      </div>
-                      <div>
-                        <p className="text-sm font-bold text-slate-800 dark:text-slate-100">Renter Guest</p>
-                        <p className="text-xs text-slate-455 dark:text-slate-400">guest.renter@gmail.com</p>
-                      </div>
-                    </div>
-                    <FaChevronRight className="text-slate-350 dark:text-slate-500 text-xs" />
-                  </button>
-
-                  <button
-                    onClick={() => setUseCustomAccount(true)}
-                    className="w-full flex items-center gap-3 p-3.5 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-950/40 border border-dashed border-slate-200 dark:border-slate-800 transition duration-200 cursor-pointer text-left"
-                  >
-                    <div className="w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 text-sm">
-                      <FaUserAlt />
-                    </div>
-                    <span className="text-sm font-bold text-slate-600 dark:text-slate-350">Use another account</span>
-                  </button>
-                </div>
               ) : (
-                /* Custom email input form */
+                /* Custom email input form by default */
                 <form onSubmit={handleCustomGoogleSubmit} className="mt-8 space-y-4">
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1">Full Name</label>
@@ -428,7 +383,7 @@ const Register = () => {
                       placeholder="your.email@gmail.com"
                       value={customGoogleEmail}
                       onChange={(e) => setCustomGoogleEmail(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-202 dark:border-slate-800 rounded-xl px-4 py-3 text-slate-800 dark:text-slate-100 outline-none focus:bg-white dark:focus:bg-slate-900 font-bold text-sm shadow-sm"
+                      className="w-full bg-slate-50 dark:bg-slate-955 border border-slate-202 dark:border-slate-800 rounded-xl px-4 py-3 text-slate-800 dark:text-slate-100 outline-none focus:bg-white dark:focus:bg-slate-900 font-bold text-sm shadow-sm"
                       required
                     />
                   </div>
@@ -436,14 +391,14 @@ const Register = () => {
                   <div className="flex gap-3 pt-3">
                     <button
                       type="button"
-                      onClick={() => setUseCustomAccount(false)}
-                      className="flex-1 py-3 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-305 text-sm font-bold cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-950/40"
+                      onClick={() => setShowGoogleModal(false)}
+                      className="flex-1 py-3 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-305 text-sm font-bold cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-955/40"
                     >
-                      Back
+                      Cancel
                     </button>
                     <button
                       type="submit"
-                      className="flex-1 py-3 rounded-xl bg-[#4285F4] hover:bg-blue-600 text-white text-sm font-bold cursor-pointer shadow"
+                      className="flex-1 py-3 rounded-xl bg-orange-500 hover:bg-orange-600 text-white text-sm font-bold cursor-pointer shadow-md shadow-orange-500/20"
                     >
                       Continue
                     </button>

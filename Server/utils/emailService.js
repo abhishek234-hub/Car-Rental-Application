@@ -22,36 +22,19 @@ const initTransporter = async () => {
     });
   } else {
     console.log("No valid EMAIL_USER and EMAIL_PASS found in environment or invalid Gmail App Password.");
-    console.log("Creating a temporary Ethereal test email account...");
-    try {
-      const testAccount = await nodemailer.createTestAccount();
-      console.log(`Ethereal email created successfully! User: ${testAccount.user}`);
-      transporter = nodemailer.createTransport({
-        host: testAccount.smtp.host,
-        port: testAccount.smtp.port,
-        secure: testAccount.smtp.secure,
-        auth: {
-          user: testAccount.user,
-          pass: testAccount.pass,
-        },
-        family: 4, // Force IPv4 to avoid IPv6 ENETUNREACH errors
-      });
-    } catch (error) {
-      console.error("Failed to create Ethereal test account. Falling back to mock console mailer.", error.message);
-      // Fallback dummy mailer
-      transporter = {
-        sendMail: async (options) => {
-          console.log("\n================ MOCK EMAIL SENT ================");
-          console.log(`FROM: ${options.from}`);
-          console.log(`TO: ${options.to}`);
-          console.log(`SUBJECT: ${options.subject}`);
-          console.log("------------------ BODY ------------------");
-          console.log(options.text || options.html);
-          console.log("=================================================\n");
-          return { messageId: "mock-id-" + Math.random().toString(36).slice(2) };
-        }
-      };
-    }
+    console.log("Falling back directly to mock console mailer...");
+    transporter = {
+      sendMail: async (options) => {
+        console.log("\n================ MOCK EMAIL SENT ================");
+        console.log(`FROM: ${options.from}`);
+        console.log(`TO: ${options.to}`);
+        console.log(`SUBJECT: ${options.subject}`);
+        console.log("------------------ BODY ------------------");
+        console.log(options.text || options.html);
+        console.log("=================================================\n");
+        return { messageId: "mock-id-" + Math.random().toString(36).slice(2) };
+      }
+    };
   }
   return transporter;
 };

@@ -128,6 +128,7 @@ const Login = () => {
             <input
               type="email"
               placeholder="Enter Email"
+              autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full bg-white/50 dark:bg-slate-955/55 border border-slate-200/85 dark:border-slate-800/85 rounded-2xl py-3.5 pl-14 pr-5 text-slate-850 dark:text-slate-100 outline-none focus:bg-white dark:focus:bg-slate-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-100 dark:focus:ring-orange-955/50 font-semibold transition-all text-sm shadow-sm"
@@ -141,6 +142,7 @@ const Login = () => {
             <input
               type="password"
               placeholder="Enter Password"
+              autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full bg-white/50 dark:bg-slate-955/55 border border-slate-200/85 dark:border-slate-800/85 rounded-2xl py-3.5 pl-14 pr-5 text-slate-850 dark:text-slate-100 outline-none focus:bg-white dark:focus:bg-slate-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-100 dark:focus:ring-orange-955/50 font-semibold transition-all text-sm shadow-sm"

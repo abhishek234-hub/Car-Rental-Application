@@ -65,13 +65,12 @@ const Register = () => {
 
       if (data.success) {
         setOtpSent(true);
-        setOtpMessage("Verification OTP code sent to your email!");
+        setOtpMessage(`Verification OTP code sent to ${data.recipient || email}!`);
       } else {
         setError(data.message || "Failed to send OTP code.");
       }
     } catch (err) {
-      console.error("Error sending OTP:", err);
-      setError("Server connection failed. Please try again.");
+      setError("Server connection failed. Please make sure backend server is running on port 5000.");
     } finally {
       setSendingOtp(false);
     }
@@ -187,6 +186,7 @@ const Register = () => {
             <input
               type="text"
               placeholder="Full Name"
+              autoComplete="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="w-full bg-white/50 dark:bg-slate-950/50 border border-slate-200/85 dark:border-slate-800/85 rounded-2xl py-3.5 pl-14 pr-5 text-slate-855 dark:text-slate-100 outline-none focus:bg-white dark:focus:bg-slate-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-100 dark:focus:ring-orange-955/50 font-semibold text-sm shadow-sm"
@@ -200,6 +200,7 @@ const Register = () => {
             <input
               type="email"
               placeholder="Email Address"
+              autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full bg-white/50 dark:bg-slate-955/50 border border-slate-200/85 dark:border-slate-800/85 rounded-2xl py-3.5 pl-14 pr-5 text-slate-855 dark:text-slate-100 outline-none focus:bg-white dark:focus:bg-slate-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-100 dark:focus:ring-orange-955/50 font-semibold text-sm shadow-sm"
@@ -213,6 +214,7 @@ const Register = () => {
             <input
               type="password"
               placeholder="Password"
+              autoComplete="new-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full bg-white/50 dark:bg-slate-955/50 border border-slate-200/85 dark:border-slate-800/85 rounded-2xl py-3.5 pl-14 pr-5 text-slate-855 dark:text-slate-100 outline-none focus:bg-white dark:focus:bg-slate-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-100 dark:focus:ring-orange-955/50 font-semibold text-sm shadow-sm"
@@ -226,6 +228,7 @@ const Register = () => {
             <input
               type="password"
               placeholder="Confirm Password"
+              autoComplete="new-password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               className="w-full bg-white/50 dark:bg-slate-955/50 border border-slate-200/85 dark:border-slate-800/85 rounded-2xl py-3.5 pl-14 pr-5 text-slate-855 dark:text-slate-100 outline-none focus:bg-white dark:focus:bg-slate-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-100 dark:focus:ring-orange-955/50 font-semibold text-sm shadow-sm"

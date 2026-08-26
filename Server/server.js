@@ -69,26 +69,28 @@ const MONGODB_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/rentx"
 const mongooseOptions = {
   dbName: "rentA",
   maxPoolSize: 10,                 // Maintain up to 10 socket connections in pool
-  serverSelectionTimeoutMS: 5000,  // Keep trying to connect for 5 seconds
-  socketTimeoutMS: 45000           // Close double idle sockets after 45 seconds
+  serverSelectionTimeoutMS: 10000, // Keep trying to connect for 10 seconds
+  socketTimeoutMS: 45000           // Close idle sockets after 45 seconds
 };
 
+// Start Express Server immediately so API endpoints are live instantly
+app.listen(PORT, () => {
+  console.log(`🚀 Server is running on port ${PORT}`);
+});
+
+// Connect to MongoDB asynchronously
 mongoose
   .connect(MONGODB_URI, mongooseOptions)
-  .then(async () => {
-    console.log("MongoDB Connected Successfully!");
+  .then(() => {
+    console.log("✅ MongoDB Connected Successfully!");
     
-    // Validate SMTP email settings
-    await validateEmailConfig().catch((err) => {
+    // Validate SMTP email settings in background
+    validateEmailConfig().catch((err) => {
       console.error("⚠️ Email configuration validation failed:", err.message);
-    });
-
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
     });
   })
   .catch((err) => {
-    console.error("Database connection error:", err);
+    console.error("⚠️ Initial database connection error:", err.message);
   });
 
 // Handle connection status changes

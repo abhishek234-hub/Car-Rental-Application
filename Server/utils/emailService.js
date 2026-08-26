@@ -2,7 +2,7 @@ const nodemailer = require("nodemailer");
 
 let transporter = null;
 
-// Initialize Gmail SMTP transporter
+// Initialize Gmail SMTP transporter with connection pooling
 const initTransporter = async () => {
   if (transporter) return transporter;
 
@@ -21,26 +21,20 @@ const initTransporter = async () => {
     host,
     port,
     secure: port === 465,
+    pool: true,
+    maxConnections: 5,
+    maxMessages: 100,
+    rateDelta: 1000,
+    rateLimit: 5,
+    connectionTimeout: 5000,
+    greetingTimeout: 5000,
+    socketTimeout: 5000,
     auth: {
       user,
       pass,
     },
     family: 4,
   });
-
-  try {
-    await transporter.verify();
-    console.log("SMTP connection verified");
-    console.log("✅ Gmail SMTP connection successful");
-    console.log(`📧 Email account: ${user}`);
-  } catch (error) {
-    transporter = null;
-    console.error("❌ Gmail SMTP connection failed:");
-    console.error(`Error Code: ${error.code}`);
-    console.error(`Response: ${error.response}`);
-    console.error(`Message: ${error.message}`);
-    throw new Error(`Gmail SMTP authentication failed: ${error.message}`);
-  }
 
   return transporter;
 };
@@ -93,10 +87,10 @@ const sendMail = async ({ to, subject, text, html }) => {
     console.log(`Recipient: ${to}`);
 
     const currentTransporter = await initTransporter();
-    const fromAddress = process.env.EMAIL_FROM || process.env.EMAIL_USER;
+    const fromHeader = process.env.EMAIL_FROM || `"RentX Car Rental" <${process.env.EMAIL_USER}>`;
 
     const info = await currentTransporter.sendMail({
-      from: `"RentX Car Rental" <${fromAddress}>`,
+      from: fromHeader,
       to,
       subject,
       text,

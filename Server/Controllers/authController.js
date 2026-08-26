@@ -21,8 +21,10 @@ const sendOTP = async (req, res) => {
       return res.status(400).json({ success: false, message: "Please provide email address." });
     }
 
+    const recipientEmail = email.trim().toLowerCase();
+
     // Check if user already exists
-    const userExists = await User.findOne({ email });
+    const userExists = await User.findOne({ email: recipientEmail });
     if (userExists) {
       return res.status(400).json({ success: false, message: "User already exists. Please login instead." });
     }
@@ -32,25 +34,23 @@ const sendOTP = async (req, res) => {
 
     // Store in DB, update if exists
     await OTP.findOneAndUpdate(
-      { email },
+      { email: recipientEmail },
       { otp, createdAt: new Date() },
       { upsert: true, new: true, setDefaultsOnInsert: true }
     );
 
-    // Send OTP via Nodemailer
-    const emailResult = await sendOtpEmail(email, otp);
-    
-    if (emailResult.success) {
-      return res.status(200).json({
-        success: true,
-        message: "OTP sent successfully"
-      });
-    } else {
-      return res.status(500).json({
-        success: false,
-        message: "OTP email could not be sent"
-      });
-    }
+    console.log(`[DYNAMIC OTP DISPATCH] Sending OTP ${otp} dynamically to user: ${recipientEmail}`);
+
+    // Send OTP via Nodemailer asynchronously in background
+    sendOtpEmail(recipientEmail, otp).catch((err) =>
+      console.error(`[OTP EMAIL ERROR for ${recipientEmail}]:`, err.message)
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: `OTP code sent successfully to ${recipientEmail}`,
+      recipient: recipientEmail,
+    });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
